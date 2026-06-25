@@ -64,15 +64,21 @@ Below is the execution of all 8 operational queries. They are presented here wit
 ### 🚀 Queries
 
 ```sql
-SELECT 
-    FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month,
-    sum(totals.visits) as visits,
-    sum(totals.pageviews) as pageviews,
-    sum(totals.transactions) as transactions
- FROM `bigquery-public-data.google_analytics_sample.ga_sessions_2017*` 
-WHERE _table_suffix between '0101' and '0331'
-group by month
-order by month;
+select format_datetime('%b %Y', a.ModifiedDate) month
+      ,c.Name
+      ,sum(a.OrderQty) qty_item
+      ,sum(a.LineTotal) total_sales
+      ,count(distinct a.SalesOrderID) order_cnt
+FROM `adventureworks2019.Sales.SalesOrderDetail` a 
+left join `adventureworks2019.Production.Product` b
+  on a.ProductID = b.ProductID
+left join `adventureworks2019.Production.ProductSubcategory` c
+  on b.ProductSubcategoryID = cast(c.ProductSubcategoryID as string)
+
+where date(a.ModifiedDate) >=  (select date_sub(date(max(a.ModifiedDate)), INTERVAL 12 month)
+                                from `adventureworks2019.Sales.SalesOrderDetail` ) -- 2013-06-30
+group by 1,2
+order by 2,1;
 ```
 
 ### 💡 Queries result
@@ -91,14 +97,49 @@ order by month;
 ### 🚀 Queries
 
 ```sql
-SELECT
-    trafficSource.source as source,
-    sum(totals.visits) as total_visits,
-    sum(totals.Bounces) as total_no_of_bounces,
-    (sum(totals.Bounces)/sum(totals.visits))* 100.00 as bounce_rate
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
-GROUP BY source
-ORDER BY total_visits DESC;
+with 
+sale_info as (
+  SELECT 
+      FORMAT_TIMESTAMP("%Y", a.ModifiedDate) as yr
+      , c.Name
+      , sum(a.OrderQty) as qty_item
+
+  FROM `adventureworks2019.Sales.SalesOrderDetail` a 
+  LEFT JOIN `adventureworks2019.Production.Product` b on a.ProductID = b.ProductID
+  LEFT JOIN `adventureworks2019.Production.ProductSubcategory` c on cast(b.ProductSubcategoryID as int) = c.ProductSubcategoryID
+  GROUP BY 1,2
+  ORDER BY 2 asc , 1 desc
+),
+
+sale_diff as (
+  select 
+  yr
+  ,Name
+  ,qty_item
+  ,lead (qty_item) over (partition by Name order by yr desc) as prv_qty
+  ,round(qty_item / (lead (qty_item) over (partition by Name order by yr desc)) -1,2) as qty_diff
+  from sale_info
+  order by 5 desc 
+),
+
+rk_qty_diff as (
+  select 
+    yr
+    ,Name
+    ,qty_item
+    ,prv_qty
+    ,qty_diff
+    ,dense_rank() over( order by qty_diff desc) dk
+  from sale_diff
+)
+
+select distinct Name
+      , qty_item
+      , prv_qty
+      , qty_diff
+from rk_qty_diff 
+where dk <=3
+order by qty_diff DESC ;
 ```
 
 ### 💡 Queries result
@@ -117,39 +158,33 @@ ORDER BY total_visits DESC;
 ### 🚀 Queries
 
 ```sql
-with 
-month_data as(
-  SELECT
-    "Month" as time_type,
-    format_date("%Y%m", parse_date("%Y%m%d", date)) as month,
-    trafficSource.source AS source,
-    SUM(p.productRevenue)/1000000 AS revenue
-  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
-    unnest(hits) hits,
-    unnest(product) p
-  WHERE p.productRevenue is not null
-  GROUP BY 1,2,3
-  order by revenue DESC
-),
+with year_order as 
+  (SELECT 
+       EXTRACT(YEAR FROM sord.ModifiedDate) year,
+       TerritoryID,
+       sum(OrderQty) as order_cnt
+   FROM `adventureworks2019.Sales.SalesOrderDetail` sord
+   LEFT JOIN  `adventureworks2019.Sales.SalesOrderHeader` sorh
+   USING(SalesOrderID)
+   GROUP BY EXTRACT(YEAR FROM sord.ModifiedDate),TerritoryID)
 
-week_data as(
-  SELECT
-    "Week" as time_type,
-    format_date("%Y%W", parse_date("%Y%m%d", date)) as week,
-    trafficSource.source AS source,
-    SUM(p.productRevenue)/1000000 AS revenue
-  FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201706*`,
-    unnest(hits) hits,
-    unnest(product) p
-  WHERE p.productRevenue is not null
-  GROUP BY 1,2,3
-  order by revenue DESC
-)
+,ranked_id as (
+  SELECT 
+   year,
+   TerritoryID,
+   order_cnt,
+   DENSE_RANK() OVER(PARTITION BY year ORDER BY order_cnt DESC) as rk
+  FROM year_order
+  ORDER BY year DESC)
 
-select * from month_data
-union all
-select * from week_data
-order by time_type
+SELECT 
+  year,
+  TerritoryID,
+  order_cnt,
+  rk
+FROM ranked_id 
+WHERE rk<= 3
+;
 ```
 
 ### 💡 Queries result
@@ -170,39 +205,27 @@ order by time_type
 ### 🚀 Queries
 
 ```sql
-with 
-purchaser_data as(
-  select
-      format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
-      (sum(totals.pageviews)/count(distinct fullvisitorid)) as avg_pageviews_purchase,
-  from `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
-    ,unnest(hits) hits
-    ,unnest(product) product
-  where _table_suffix between '0601' and '0731'
-  and totals.transactions>=1
-  and product.productRevenue is not null
-  group by month
-),
+with per_cgry as 
+( SELECT 
+   EXTRACT(YEAR FROM sord.ModifiedDate) as year,
+   prds.Name AS name,
+   (DiscountPct * UnitPrice * OrderQty) as Discount_cost
+  FROM `adventureworks2019.Sales.SalesOrderDetail` sord
+  LEFT JOIN `adventureworks2019.Production.Product` prod
+    ON sord.ProductID = prod.ProductID
+  LEFT JOIN `adventureworks2019.Production.ProductSubcategory` prds
+    ON CAST(prod.ProductSubcategoryID AS INT) = prds.ProductSubcategoryID
+  LEFT JOIN `adventureworks2019.Sales.SpecialOffer` sof
+    USING(SpecialOfferID)
+  WHERE type like '%Seasonal Discount%')
 
-non_purchaser_data as(
-  select
-      format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
-      sum(totals.pageviews)/count(distinct fullvisitorid) as avg_pageviews_non_purchase,
-  from `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`
-      ,unnest(hits) hits
-    ,unnest(product) product
-  where _table_suffix between '0601' and '0731'
-  and totals.transactions is null
-  and product.productRevenue is null
-  group by month
-)
-
-select
-    pd.*,
-    avg_pageviews_non_purchase
-from purchaser_data pd
-full join non_purchaser_data using(month)
-order by pd.month;
+SELECT
+    year,
+    name,
+    sum(Discount_cost) as total_cost
+FROM per_cgry
+GROUP BY year,name
+ORDER BY year;
 ```
 
 ### 💡 Queries result
@@ -221,15 +244,47 @@ order by pd.month;
 ### 🚀 Queries
 
 ```sql
-select
-    format_date("%Y%m",parse_date("%Y%m%d",date)) as month,
-    sum(totals.transactions)/count(distinct fullvisitorid) as Avg_total_transactions_per_user
-from `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
-    ,unnest (hits) hits,
-    unnest(product) product
-where  totals.transactions>=1
-and product.productRevenue is not null
-group by month;
+With info as 
+( SELECT
+    EXTRACT(month from ModifiedDate) as mth_order,
+    EXTRACT(year from ModifiedDate) as yr,
+    CustomerID,
+    count(distinct SalesOrderID) as sales_cnt
+  FROM `adventureworks2019.Sales.SalesOrderHeader`
+  where Status = 5 AND EXTRACT(year from ModifiedDate) = 2014
+  GROUP BY 1,2,3    
+)
+
+, row_num as (
+  select * ,row_number() over (partition by CustomerID order by mth_order asc) as row_nb
+  from info
+),
+
+first_order as (
+  select distinct mth_order as mth_join, yr, CustomerID
+  from  row_num
+  where row_nb = 1
+),
+
+all_join as (
+  select 
+  distinct a.mth_order,
+   a.yr,
+   a.CustomerID,
+   b.mth_join,
+   CONCAT('M',a.mth_order - b.mth_join) as mth_diff
+  from info a
+  LEFT JOIN first_order  b
+  on a.CustomerID = b.CustomerID
+  ORDER BY 3
+)
+
+SELECT 
+ DISTINCT mth_join,mth_diff 
+ ,count(distinct CustomerID) as custopmer_cnt
+FROM all_join
+GROUP BY 1,2
+ORDER BY 1;
 ```
 
 ### 💡 Queries result
@@ -248,18 +303,38 @@ group by month;
 ### 🚀 Queries
 
 ```sql
-SELECT
-     FORMAT_DATE('%Y%m', PARSE_DATE('%Y%m%d', date)) AS month,
-    ROUND(((SUM(product.productRevenue) / 1000000) / sum(totals.visits)),2) AS avg_revenue_by_user_per_visit
-FROM
-    `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
-    UNNEST(hits) AS hits,
-    UNNEST(hits.product) AS product
-WHERE
-    _table_suffix BETWEEN '0701' AND '0731'
-    AND totals.transactions IS NOT NULL
-    AND product.productRevenue IS NOT NULL
-group by month;
+WITH stock_cr AS 
+( SELECT 
+       prd.Name as name,
+       EXTRACT(month FROM wod.ModifiedDate) as mth,
+       EXTRACT(YEAR FROM wod.ModifiedDate) as yr,
+       SUM(StockedQty) as stock_qty
+  FROM `adventureworks2019.Production.Product` prd
+  LEFT JOIN `adventureworks2019.Production.WorkOrder` wod
+  USING(ProductID)
+  WHERE EXTRACT(YEAR FROM wod.ModifiedDate)= 2011
+  GROUP BY name,mth,yr
+  ORDER BY name,mth DESC)
+
+,cr_prev as
+( SELECT 
+        name,
+        mth,
+        yr,
+        stock_qty,
+        LEAD(stock_qty) OVER(PARTITION BY name ORDER BY mth DESC) as stock_prv     
+  FROM stock_cr
+  ORDER BY name
+)
+
+SELECT 
+    name,
+    mth,
+    yr,
+    stock_qty,
+    stock_prv,
+    COALESCE(ROUND((stock_qty - stock_prv) / stock_prv * 100.0 , 1) ,0) as diff
+FROM cr_prev;
 ```
 
 ### 💡 Queries result
@@ -278,29 +353,46 @@ group by month;
 ### 🚀 Queries
 
 ```sql
-with buyer_list as(
-    SELECT
-        distinct fullVisitorId  
-    FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
-    , UNNEST(hits) AS hits
-    , UNNEST(hits.product) as product
-    WHERE product.v2ProductName = "YouTube Men's Vintage Henley"
-    AND totals.transactions>=1
-    AND product.productRevenue is not null
+with 
+sale_info as (
+  select 
+      extract(month from a.ModifiedDate) as mth 
+     , extract(year from a.ModifiedDate) as yr 
+     , a.ProductId
+     , b.Name
+     , sum(a.OrderQty) as sales
+  from `adventureworks2019.Sales.SalesOrderDetail` a 
+  left join `adventureworks2019.Production.Product` b 
+    on a.ProductID = b.ProductID
+  where FORMAT_TIMESTAMP("%Y", a.ModifiedDate) = '2011'
+  group by 1,2,3,4
+), 
+
+stock_info as (
+  select
+      extract(month from ModifiedDate) as mth 
+      , extract(year from ModifiedDate) as yr 
+      , ProductId
+      , sum(StockedQty) as stock_cnt
+  from 'adventureworks2019.Production.WorkOrder'
+  where FORMAT_TIMESTAMP("%Y", ModifiedDate) = '2011'
+  group by 1,2,3
 )
 
-SELECT
-  product.v2ProductName AS other_purchased_products,
-  SUM(product.productQuantity) AS quantity
-FROM `bigquery-public-data.google_analytics_sample.ga_sessions_201707*`
-, UNNEST(hits) AS hits
-, UNNEST(hits.product) as product
-JOIN buyer_list using(fullVisitorId)
-WHERE product.v2ProductName != "YouTube Men's Vintage Henley"
- and product.productRevenue is not null
- AND totals.transactions>=1
-GROUP BY other_purchased_products
-ORDER BY quantity DESC;
+select
+      a.mth
+    , a.yr
+    , a.ProductId
+    , a.Name
+    , a.sales
+    , b.stock_cnt as stock  --(*)
+    , round(coalesce(b.stock_cnt,0) / sales,2) as ratio
+from sale_info a 
+full join stock_info b 
+  on a.ProductId = b.ProductId
+and a.mth = b.mth 
+and a.yr = b.yr
+order by 1 desc, 7 desc;
 ```
 
 ### 💡 Queries result
@@ -320,38 +412,14 @@ ORDER BY quantity DESC;
 ### 🚀 Queries
 
 ```sql
-WITH product_events AS (
-  SELECT
-    FORMAT_DATE("%Y%m", PARSE_DATE("%Y%m%d", date)) AS month,
-    product.v2ProductName AS product_name,
-    hits.eCommerceAction.action_type AS action_type,
-    product.productRevenue AS revenue
-  FROM
-    `bigquery-public-data.google_analytics_sample.ga_sessions_2017*`,
-    UNNEST(hits) AS hits,
-    UNNEST(hits.product) AS product
-  WHERE
-    _TABLE_SUFFIX BETWEEN '0101' AND '0331'
-)
-
-,aggregated AS (
-  SELECT
-    month,
-    COUNTIF(action_type = '2') AS num_product_view, 
-    COUNTIF(action_type = '3')  AS num_addtocart,
-    COUNTIF(action_type = '6' and revenue IS NOT NULL ) AS num_purchase
-  FROM product_events
-  GROUP BY month
-)
 SELECT
-  month,
-  num_product_view,
-  num_addtocart,
-  num_purchase,
-  ROUND( (num_addtocart / num_product_view) * 100.0, 2) AS add_to_cart_rate,
-  ROUND((num_purchase   / num_product_view) * 100.0, 2) AS purchase_rate
-FROM aggregated
-ORDER BY month;
+      EXTRACT(YEAR FROM ModifiedDate) as yr,
+      Status,
+      COUNT( DISTINCT PurchaseOrderID) as order_cnt,
+      SUM(TotalDue) as value
+FROM  `adventureworks2019.Purchasing.PurchaseOrderHeader`
+WHERE Status = 1 AND EXTRACT(YEAR FROM ModifiedDate) = 2014
+GROUP BY yr,Status;
 ```
 
 ### 💡 Queries result
