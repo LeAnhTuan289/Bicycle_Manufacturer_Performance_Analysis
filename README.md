@@ -83,7 +83,7 @@ order by 2,1;
 
 ### 💡 Queries result
 
-![Image](https://github.com/user-attachments/assets/42eea66b-3f63-46af-9a9f-87d4033262a0)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q1.png)
 
 </details>
 
@@ -144,7 +144,7 @@ order by qty_diff DESC ;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/d87e0decbd98c30c541c54f4a0c6a032c388b604/documents/q2.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q2.png)
 
 </details>
 
@@ -189,7 +189,7 @@ WHERE rk<= 3
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q3.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q3.png)
 
 </details>
 
@@ -230,7 +230,7 @@ ORDER BY year;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q4.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q4.png)
 
 </details>
 
@@ -289,7 +289,7 @@ ORDER BY 1;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q5.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q5.png)
 
 </details>
 
@@ -339,7 +339,7 @@ FROM cr_prev;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q6.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q6.png)
 
 </details>
 
@@ -397,7 +397,7 @@ order by 1 desc, 7 desc;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q7.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q7.png)
 
 </details>
 
@@ -424,7 +424,7 @@ GROUP BY yr,Status;
 
 ### 💡 Queries result
 
-![Image](https://github.com/LeAnhTuan289/Ecommerce-Web-Performance-Purchase-Behavior-Analysis-SQL-BigQuery-/blob/44c3bbff1268c641f356453c987c16c18203735c/documents/q8.png)
+![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q8.png)
 
 </details>
 
