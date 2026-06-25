@@ -19,17 +19,21 @@
 
 ### 📖 What is this project about? What Business Question will it solve?  
 
-This project uses **SQL** and **BigQuery** to analyze the performance of an e-commerce website, focusing on traffic, engagement, and revenue over time.  
-- ✔️ **Track changes** in traffic, engagement, and revenue.  
-- ✔️ **Breakdown revenue** by traffic source (weekly, monthly).  
-- ✔️ **Compare pageviews** and transactions between purchasers and non-purchasers.  
-- ✔️ **Map the customer journey** from product view to purchase.
+**Objective:**
+
+- This project uses SQL (Google BigQuery) to analyze sales, production, and purchasing data from the **AdventureWorks dataset**
+- It answers 8 specific business questions covering **Sales Performance, Customer Retention, and Inventory Optimization**
+- The goal is to turn raw transactional and operational data into clear, actionable insights for the business
+
+**Main business question:**
+
+This project uses SQL to analyze sales, inventory, and purchasing data from AdventureWorks to:
+- Identify which product categories, territories, and time periods drive the most sales
+- Evaluate how discounts, customer retention, and stock levels affect overall business performance
 
 ## 👤 Who is this project for?  
-- ✔️ **Data Analysts & Business Analysts**  
-- ✔️ **Digital Marketing Teams**  
-- ✔️ **E-commerce Managers & Stakeholders**  
-- ✔️ **Business Intelligence Teams**
+- ✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)
+- ✔️ **Decision-makers & stakeholders** who need quick insights into sales trends, inventory health, and supplier performance  
 
 ## 📂 Dataset Description & Data Structure
 
