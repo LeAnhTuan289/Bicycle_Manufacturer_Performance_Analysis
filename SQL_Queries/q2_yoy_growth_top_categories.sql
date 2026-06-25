@@ -43,4 +43,4 @@ select distinct Name
       , qty_diff
 from rk_qty_diff 
 where dk <=3
-order by dk ;
+order by qty_diff DESC ;
