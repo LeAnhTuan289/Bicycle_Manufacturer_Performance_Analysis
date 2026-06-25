@@ -361,25 +361,21 @@ ORDER BY month;
 ## 🗂️ Project Structure
 
 ```text
-├── documents/
-│   ├── q1.png        # Execution results for Q1
-│   ├── q2.png        # Execution results for Q2
-│   ├── q3.png        # Execution results for Q3
-│   ├── q4.png        # Execution results for Q4
-│   ├── q5.png        # Execution results for Q5
-│   ├── q6.png        # Execution results for Q6
-│   ├── q7.png        # Execution results for Q7
-│   └── q8.png        # Execution results for Q8
-├── query/
-│   ├── q01_monthly_traffic_overview.sql
-│   ├── q02_bounce_rate_by_source.sql
-│   ├── q03_revenue_by_source_week_month.sql
-│   ├── q04_avg_pageviews_by_purchaser_type.sql
-│   ├── q05_avg_transactions_per_user.sql
-│   ├── q06_avg_revenue_per_session.sql
-│   ├── q07_cross_sell_products.sql
-│   └── q08_conversion_funnel_cohort.sql
-└── README.md
+Bicycle_Manufacturer_Performance_Analysis/
+├── documents/                         # Contains query result output images
+│   ├── q1.png
+│   ├── ...
+│   └── q8.png
+├── query/                             
+│   ├── q1_sales_performance_l12m.sql
+│   ├── q2_yoy_growth_top_categories.sql
+│   ├── q3_top_territories.sql
+│   ├── q4_seasonal_discount_cost.sql
+│   ├── q5_retention_rate_cohort.sql
+│   ├── q6_stock_trend_mom.sql
+│   ├── q7_stock_to_sales_ratio.sql
+│   └── q8_pending_orders_2014.sql
+└── README.md                          
 ```
 
 ## 🔎 Final Conclusion & Recommendations
