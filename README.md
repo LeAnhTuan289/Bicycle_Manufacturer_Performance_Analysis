@@ -151,7 +151,7 @@ order by qty_diff DESC ;
 <details>
 <summary><b>Query 3: Top Territories by Year</b> (Click to expand)</summary>
 
-### 🔍 Question: Ranking Top 3 TeritoryID with biggest Order quantity of every year. If there's TerritoryID with same quantity in a year, do not skip the rank number.
+### 🔍 Question: Ranking Top 3 TeritoryID with biggest Order quantity of every year. 
 
 **Knowing which territories consistently drive the most orders helps the sales team prioritize regional resources and flag underperforming areas that may need support.**
 
