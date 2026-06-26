@@ -8,12 +8,16 @@
 
 **Tools Used:** SQL
 
+---
+
 ## 📑 Table of Contents
 
 [📌 Background & Overview](#-background--overview)  
 [📂 Dataset Description & Data Structure](#-dataset-description--data-structure)  
 [🗂️ Project Structure](#️-project-structure)  
 [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)  
+
+---
 
 ## Background & Overview
 
@@ -35,20 +39,30 @@ This project uses SQL to analyze sales, inventory, and purchasing data from Adve
 - ✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)
 - ✔️ **Decision-makers & stakeholders** who need quick insights into sales trends, inventory health, and supplier performance  
 
+---
+
 ## 📂 Dataset Description & Data Structure
 
-**📌 Data Source**: The sample data is from **Google Analytics 4 (GA4)**, exported to **BigQuery**, including user activity data from the **Google Merchandise Store** e-commerce website.
+This project is an end-to-end data analysis performed on the **AdventureWorks database**, a comprehensive dataset simulating a large multinational manufacturing company. The business operates across multiple international regions, managing thousands of products, salespeople, and complex supply chain records.
 
-**📌 Data Size**:
+### Data Dictionary
 
-- **Dataset**: `ga4_obfuscated_sample_ecommerce`
+To execute the 8 operational queries in this project, I utilized **8 tables** across the `Sales`, `Production`, and `Purchasing` schemas. Below is a targeted data dictionary of the exact fields used in my analysis. 
 
-**📌 How to Access the Data:**
-1. Log in to your **Google Cloud Platform** account and create a new project.
-2. Open the **BigQuery Console** and select your project.
-3. Click on **"Add Data"** in the navigation panel, then choose **"Search a project"**.
-4. In the search bar, enter the project ID: `bigquery-public-data.google_analytics_sample.ga_sessions` and press **Enter**.
-5. Click on the `ga_sessions_` table to explore its structure and data.
+> 🔗 **Full Documentation:** For the complete, un-abridged Data Dictionary of the entire AdventureWorks dataset, please refer to the [Official Data Dictionary (PDF)](https://drive.google.com/file/d/1bwwsS3cRJYOg1cvNppc1K_8dQLELN16T/view).
+
+| Schema | Table Name | Columns Used in Queries | Business Purpose in Analysis |
+| :--- | :--- | :--- | :--- |
+| **Sales** | `SalesOrderHeader` | `SalesOrderID`, `OrderDate`, `CustomerID`, `TerritoryID`, `Status`, `ModifiedDate` | Base table for tracking cohort timelines, territory performance, and successful conversions. |
+| **Sales** | `SalesOrderDetail` | `SalesOrderID`, `ProductID`, `OrderQty`, `LineTotal`, `UnitPrice`, `SpecialOfferID` | Fact table for aggregating total demand, volume, and revenue. |
+| **Sales** | `SpecialOffer` | `SpecialOfferID`, `DiscountPct`, `Type` | Sourced the "Seasonal Discount" type and percentages for cost-efficiency tracking. |
+| **Production** | `Product` | `ProductID`, `Name`, `ProductSubcategoryID` | Dimension table linking SKU IDs to human-readable names and category clusters. |
+| **Production** | `ProductSubcategory` | `ProductSubcategoryID`, `Name` | Used to group specific bicycle models into high-level subcategories for YoY growth tracking. |
+| **Production** | `WorkOrder` | `ProductID`, `StockedQty`, `ModifiedDate` | Core table specifying historical stocked quantities to measure month-over-month supply trends. |
+| **Purchasing** | `PurchaseOrderHeader` | `PurchaseOrderID`, `Status`, `TotalDue`, `ModifiedDate` | Evaluated supplier backend performance by isolating `Status = 1` (Pending) orders. |
+| **Purchasing** | `PurchaseOrderDetail` | `PurchaseOrderID` | Joined context for purchase order line items. |
+
+---
 
 ## ⚒️ Main Process
 
@@ -428,6 +442,8 @@ GROUP BY yr,Status;
 
 </details>
 
+---
+
 ## 🗂️ Project Structure
 
 ```text
@@ -447,6 +463,8 @@ Bicycle_Manufacturer_Performance_Analysis/
 │   └── q8_pending_orders_2014.sql
 └── README.md                          
 ```
+
+---
 
 ## 🔎 Final Conclusion & Recommendations
 
