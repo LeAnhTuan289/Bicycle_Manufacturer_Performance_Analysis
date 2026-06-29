@@ -468,16 +468,5 @@ Bicycle_Manufacturer_Performance_Analysis/
 
 ## 🔎 Final Conclusion & Recommendations
 
-### 📌 Insights
 
-- **Traffic Trends**: The **total visits** in January, February, and March 2017 showed consistent traffic, with March having the highest number of visits (69,931).
-- **Revenue by Source**: **Direct** traffic contributed significantly to revenue in June 2017, with notable contributions from **Google** and **Mail** sources, indicating strong performance from these channels.
-- **Bounce Rate Insights**: Traffic from sources like **phandroid.com** has a high bounce rate of **77.78%**, which suggests that users might not be engaging well with the content on landing pages.
-- **Purchaser Behavior**: Customers who bought the **"YouTube Men's Vintage Henley"** showed interest in related products like **Google Men's Vintage Badge Tee Black**, which presents an opportunity for cross-selling.
 
-### 📌 Recommendations
-
-1. **Optimize Landing Pages for High Bounce Traffic**: Improve pages for sources with high bounce rates (e.g., **phandroid.com**) by enhancing content relevance and reducing page load times.
-2. **Focus on Direct & Paid Traffic**: Increase investment in **Google Ads** and improve brand awareness to leverage high-performing **direct traffic** for better conversions.
-3. **Boost Conversion for Non-Purchasers**: Simplify the checkout process and offer targeted promotions to convert high-pageview, non-purchasing users.
-4. **Maximize Cross-Selling**: Use product recommendations for items like the **"YouTube Men's Vintage Henley"** to drive cross-sales and increase average order value.
