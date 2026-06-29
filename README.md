@@ -25,15 +25,17 @@
 
 **Objective:**
 
-- This project uses SQL (Google BigQuery) to analyze sales, production, and purchasing data from the **AdventureWorks dataset**
-- It answers 8 specific business questions covering **Sales Performance, Customer Retention, and Inventory Optimization**
-- The goal is to turn raw transactional and operational data into clear, actionable insights for the business
+- This project leverages SQL (Google BigQuery) to analyze AdventureWorks sales, inventory, purchasing, and customer data in order to uncover business performance trends and generate actionable insights.
+
+- The analysis focuses on identifying revenue drivers, evaluating customer retention, assessing promotional effectiveness, and optimizing inventory management to support data-driven business decision-making.
 
 **Main business question:**
 
 This project uses SQL to analyze sales, inventory, and purchasing data from AdventureWorks to:
-- Identify which product categories, territories, and time periods drive the most sales
-- Evaluate how discounts, customer retention, and stock levels affect overall business performance
+- Which product categories, sales territories, and time periods contribute most to revenue growth?
+- How effective are current pricing and promotional strategies in supporting profitable sales?
+- How well does the business retain customers, and what opportunities exist to improve Customer Lifetime Value (CLV)?
+- Is inventory aligned with sales demand, and how can inventory planning be optimized to improve operational efficiency?
 
 ## 👤 Who is this project for?  
 - ✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)
@@ -470,49 +472,36 @@ Bicycle_Manufacturer_Performance_Analysis/
 
 ### 📌 Key Business Insights
 
-#### 🚵 Mountain Frames Became the Company's Primary Growth Driver
+**🚵 High-Growth Products, Territories, and Time Periods Drive Revenue Performance**
 
-Mountain Frames recorded the highest Year-over-Year revenue growth (+521%), significantly outperforming every other product category. This indicates a strong shift in customer demand and suggests that Mountain Frames will likely remain the company's primary revenue growth engine if sufficient inventory and marketing investment are maintained.
+Sales analysis shows that revenue growth is concentrated in specific product categories, sales territories, and time periods rather than being evenly distributed across the business. In particular, Mountain Frames achieved the highest Year-over-Year revenue growth (+521%), highlighting this category as a key growth driver and indicating opportunities to further capitalize on high-performing markets.
 
----
+**💰 Rising Promotional Costs Require Continuous Profitability Monitoring**
 
-#### 💰 Promotional Spending Is Growing Faster Than Sales Efficiency
+Seasonal discount costs increased substantially across several product categories, particularly Helmets. This suggests that promotional spending has become more significant over time and should be carefully monitored to ensure that revenue growth continues to outweigh the associated discount costs.
 
-Seasonal discount costs increased substantially across several product categories, particularly Helmets. The business appears to rely increasingly on promotional campaigns to stimulate demand, which may gradually erode gross profit margins if promotional effectiveness is not continuously evaluated.
+**👥 Customer Retention Represents the Largest Growth Opportunity**
 
----
+Cohort analysis reveals that only a small proportion of customers return after their initial purchase. While the business successfully acquires new customers, limited repeat purchasing restricts Customer Lifetime Value (CLV) and increases reliance on ongoing customer acquisition.
 
-#### 👥 Customer Acquisition Is Strong, but Retention Remains a Key Weakness
+**📦 Inventory Levels Are Not Always Aligned with Sales Demand**
 
-Cohort analysis reveals that only a small proportion of customers return after their initial purchase. While the company successfully attracts new customers, limited repeat purchasing restricts Customer Lifetime Value (CLV) and increases dependence on continuous customer acquisition.
-
----
-
-#### 📦 Inventory Allocation Is Not Fully Aligned with Market Demand
-
-Several products maintain considerably higher inventory levels relative to their sales performance, resulting in inefficient capital allocation and increased inventory holding costs. Inventory planning should better reflect actual sales demand to improve operational efficiency.
+Several products maintain considerably higher inventory levels relative to their sales performance, resulting in inefficient capital utilization and increased inventory holding costs. Better alignment between inventory levels and customer demand would improve operational efficiency and cash flow.
 
 ### 📌 Business Recommendations
 
-#### 🚀 Prioritize Investment in High-Growth Categories
+**🚀 Focus Investment on High-Performing Products, Markets, and Sales Periods**
 
-Increase inventory capacity and marketing investment for Mountain Frames while introducing premium product bundles to maximize revenue growth and Average Order Value (AOV).
+Allocate inventory, marketing resources, and sales efforts toward high-performing product categories, territories, and peak sales periods. Expanding successful product lines while tailoring regional marketing strategies can further accelerate revenue growth.
 
----
+**🎯 Improve Promotional Efficiency**
 
-#### 🎯 Optimize Promotional Effectiveness
+Replace blanket discount campaigns with targeted promotions, personalized offers, and loyalty incentives. Continuously monitor Promotion ROI, Gross Margin, and Discount-to-Revenue Ratio to maximize promotional effectiveness while protecting profitability.
 
-Shift from broad discount campaigns toward personalized promotions and loyalty incentives. Continuously monitor Promotion ROI and Gross Margin to balance revenue growth with profitability.
+**❤️ Strengthen Customer Retention**
 
----
+Develop post-purchase engagement programs, including maintenance reminders, loyalty rewards, and personalized product recommendations to encourage repeat purchases and increase Customer Lifetime Value (CLV).
 
-#### ❤️ Strengthen Customer Retention Strategy
+**📊 Optimize Inventory and Purchasing Decisions**
 
-Develop post-purchase engagement programs, including maintenance reminders, loyalty rewards, and personalized accessory recommendations to encourage repeat purchases and increase Customer Lifetime Value (CLV).
-
----
-
-#### 📊 Improve Inventory Planning
-
-Adopt demand-driven inventory management by monitoring Inventory Turnover and Stock-to-Sales Ratios. Reduce production of slow-moving products while ensuring sufficient inventory for high-demand categories.
-
+Adopt demand-driven inventory planning by monitoring Inventory Turnover and Stock-to-Sales Ratios. Align purchasing decisions with historical sales demand to reduce excess inventory, improve cash flow, and minimize inventory holding costs.
