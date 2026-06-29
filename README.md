@@ -25,17 +25,17 @@
 
 **Objective:**
 
-- This project leverages SQL (Google BigQuery) to analyze AdventureWorks sales, inventory, purchasing, and customer data in order to uncover business performance trends and generate actionable insights.
+- ✔️ This project leverages SQL (Google BigQuery) to analyze AdventureWorks sales, inventory, purchasing, and customer data in order to uncover business performance trends and generate actionable insights.
 
-- The analysis focuses on identifying revenue drivers, evaluating customer retention, assessing promotional effectiveness, and optimizing inventory management to support data-driven business decision-making.
+- ✔️ The analysis focuses on identifying revenue drivers, evaluating customer retention, assessing promotional effectiveness, and optimizing inventory management to support data-driven business decision-making.
 
 **Main business question:**
 
 This project uses SQL to analyze sales, inventory, and purchasing data from AdventureWorks to:
-- Which product categories, sales territories, and time periods contribute most to revenue growth?
-- How effective are current pricing and promotional strategies in supporting profitable sales?
-- How well does the business retain customers, and what opportunities exist to improve Customer Lifetime Value (CLV)?
-- Is inventory aligned with sales demand, and how can inventory planning be optimized to improve operational efficiency?
+- ✔️ Which product categories, sales territories, and time periods contribute most to revenue growth?
+- ✔️ How effective are current pricing and promotional strategies in supporting profitable sales?
+- ✔️ How well does the business retain customers, and what opportunities exist to improve Customer Lifetime Value (CLV)?
+- ✔️ Is inventory aligned with sales demand, and how can inventory planning be optimized to improve operational efficiency?
 
 ## 👤 Who is this project for?  
 - ✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)
