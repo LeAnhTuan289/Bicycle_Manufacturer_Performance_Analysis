@@ -468,5 +468,51 @@ Bicycle_Manufacturer_Performance_Analysis/
 
 ## 🔎 Final Conclusion & Recommendations
 
+### 📌 Key Business Insights
 
+#### 🚵 Mountain Frames Became the Company's Primary Growth Driver
+
+Mountain Frames recorded the highest Year-over-Year revenue growth (+521%), significantly outperforming every other product category. This indicates a strong shift in customer demand and suggests that Mountain Frames will likely remain the company's primary revenue growth engine if sufficient inventory and marketing investment are maintained.
+
+---
+
+#### 💰 Promotional Spending Is Growing Faster Than Sales Efficiency
+
+Seasonal discount costs increased substantially across several product categories, particularly Helmets. The business appears to rely increasingly on promotional campaigns to stimulate demand, which may gradually erode gross profit margins if promotional effectiveness is not continuously evaluated.
+
+---
+
+#### 👥 Customer Acquisition Is Strong, but Retention Remains a Key Weakness
+
+Cohort analysis reveals that only a small proportion of customers return after their initial purchase. While the company successfully attracts new customers, limited repeat purchasing restricts Customer Lifetime Value (CLV) and increases dependence on continuous customer acquisition.
+
+---
+
+#### 📦 Inventory Allocation Is Not Fully Aligned with Market Demand
+
+Several products maintain considerably higher inventory levels relative to their sales performance, resulting in inefficient capital allocation and increased inventory holding costs. Inventory planning should better reflect actual sales demand to improve operational efficiency.
+
+### 📌 Business Recommendations
+
+#### 🚀 Prioritize Investment in High-Growth Categories
+
+Increase inventory capacity and marketing investment for Mountain Frames while introducing premium product bundles to maximize revenue growth and Average Order Value (AOV).
+
+---
+
+#### 🎯 Optimize Promotional Effectiveness
+
+Shift from broad discount campaigns toward personalized promotions and loyalty incentives. Continuously monitor Promotion ROI and Gross Margin to balance revenue growth with profitability.
+
+---
+
+#### ❤️ Strengthen Customer Retention Strategy
+
+Develop post-purchase engagement programs, including maintenance reminders, loyalty rewards, and personalized accessory recommendations to encourage repeat purchases and increase Customer Lifetime Value (CLV).
+
+---
+
+#### 📊 Improve Inventory Planning
+
+Adopt demand-driven inventory management by monitoring Inventory Turnover and Stock-to-Sales Ratios. Reduce production of slow-moving products while ensuring sufficient inventory for high-demand categories.
 
