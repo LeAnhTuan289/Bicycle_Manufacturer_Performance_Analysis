@@ -13,9 +13,9 @@
 ## 📑 Table of Contents
 
 [📌 Background & Overview](#-background--overview)  
-[📂 Dataset Description & Data Structure](#-dataset-description--data-structure)  
-[🗂️ Project Structure](#️-project-structure)  
+[📂 Dataset Description & Data Structure](#-dataset-description--data-structure)   
 [🔎 Final Conclusion & Recommendations](#-final-conclusion--recommendations)  
+[🗂️ Project Structure](#️-project-structure)  
 
 ---
 
@@ -25,21 +25,21 @@
 
 **Objective:**
 
-- ✔️ This project leverages SQL (Google BigQuery) to analyze AdventureWorks sales, inventory, purchasing, and customer data in order to uncover business performance trends and generate actionable insights.
+✔️ This project leverages SQL (Google BigQuery) to analyze AdventureWorks sales, inventory, purchasing, and customer data in order to uncover business performance trends and generate actionable insights.
 
-- ✔️ The analysis focuses on identifying revenue drivers, evaluating customer retention, assessing promotional effectiveness, and optimizing inventory management to support data-driven business decision-making.
+✔️ The analysis focuses on identifying revenue drivers, evaluating customer retention, assessing promotional effectiveness, and optimizing inventory management to support data-driven business decision-making.
 
 **Main business question:**
 
-This project uses SQL to analyze sales, inventory, and purchasing data from AdventureWorks to:
-- ✔️ Which product categories, sales territories, and time periods contribute most to revenue growth?
-- ✔️ How effective are current pricing and promotional strategies in supporting profitable sales?
-- ✔️ How well does the business retain customers, and what opportunities exist to improve Customer Lifetime Value (CLV)?
-- ✔️ Is inventory aligned with sales demand, and how can inventory planning be optimized to improve operational efficiency?
+This project uses SQL to analyze sales, inventory, and purchasing data from AdventureWorks to:  
+✔️ Which product categories, sales territories, and time periods contribute most to revenue growth?  
+✔️ How effective are current pricing and promotional strategies in supporting profitable sales?  
+✔️ How well does the business retain customers, and what opportunities exist to improve Customer Lifetime Value (CLV)?  
+✔️ Is inventory aligned with sales demand, and how can inventory planning be optimized to improve operational efficiency?  
 
 ## 👤 Who is this project for?  
-- ✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)
-- ✔️ **Decision-makers & stakeholders** who need quick insights into sales trends, inventory health, and supplier performance  
+✔️ **Data analysts & business analysts** who want a reference for writing analytical SQL (CTEs, window functions, cohort analysis)  
+✔️ **Decision-makers & stakeholders** who need quick insights into sales trends, inventory health, and supplier performance  
 
 ---
 
@@ -70,9 +70,6 @@ To execute the 8 operational queries in this project, I utilized **8 tables** ac
 
 Below is the execution of all 8 operational queries. They are presented here with their logic and a sample of their output results so you can explore the insights directly.
 
-<details>
-<summary><b>Query 1: lume L12M</b> (Cl</b> (Click to expand)</summary>
-
 ### 🔍 Question: Calc Quantity of items, Sales value & Order quantity by each Subcategory in L12M.
 
 **Tracking the last 12 months of sales by subcategory helps the business spot which product lines are growing or declining in real time - so inventory and marketing budgets can be adjusted before it's too late.**
@@ -100,11 +97,6 @@ order by 2,1;
 ### 💡 Queries result
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q1.png)
-
-</details>
-
-<details>
-<summary><b>Query 2: YoY Growth Rate by Category</b> (Click to expand)</summary>
 
 ### 🔍 Question: Calc % YoY growth rate by SubCategory & release top 3 cat with highest grow rate.
 
@@ -162,10 +154,6 @@ order by qty_diff DESC ;
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q2.png)
 
-</details>
-
-<details>
-<summary><b>Query 3: Top Territories by Year</b> (Click to expand)</summary>
 
 ### 🔍 Question: Ranking Top 3 TeritoryID with biggest Order quantity of every year. 
 
@@ -207,11 +195,6 @@ WHERE rk<= 3
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q3.png)
 
-</details>
-
-<details>
-  
-<summary><b>Query 4: Seasonal Discount Efficiency</b> (Click to expand)</summary>
 
 ### 🔍 Question: Calc Total Discount Cost belongs to Seasonal Discount for each SubCategory.
 
@@ -248,10 +231,6 @@ ORDER BY year;
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q4.png)
 
-</details>
-
-<details>
-<summary><b>Query 5: Cohort Retention Rate</b> (Click to expand)</summary>
 
 ### 🔍 Question: Retention rate of Customer in 2014 with status of Successfully Shipped (Cohort Analysis).
 
@@ -307,10 +286,6 @@ ORDER BY 1;
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q5.png)
 
-</details>
-
-<details>
-<summary><b>Query 6: Stock Trend MoM</b> (Click to expand)</summary>
 
 ### 🔍 Question: Trend of Stock level & MoM diff % by all product in 2011
 
@@ -357,10 +332,6 @@ FROM cr_prev;
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q6.png)
 
-</details>
-
-<details>
-<summary><b>Query 7: Stock-to-Sales Ratio</b> (Click to expand)</summary>
 
 ### 🔍 Question: Calc Ratio of Stock / Sales in 2011 by product name, by month.
 
@@ -415,10 +386,6 @@ order by 1 desc, 7 desc;
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q7.png)
 
-</details>
-
-<details>
-<summary><b>Query 8: Pending Orders Breakdown</b> (Click to expand)</summary>
 
 ### 🔍 Question: No of order and value at Pending status in 2014.
 
@@ -441,30 +408,6 @@ GROUP BY yr,Status;
 ### 💡 Queries result
 
 ![Image](https://github.com/LeAnhTuan289/Bicycle_Manufacturer_Performance_Analysis/blob/e15924a697eb118c82938684efd5473bd7366e8f/documents/q8.png)
-
-</details>
-
----
-
-## 🗂️ Project Structure
-
-```text
-Bicycle_Manufacturer_Performance_Analysis/
-├── documents/                         # Contains query result output images
-│   ├── q1.png
-│   ├── ...
-│   └── q8.png
-├── query/                             
-│   ├── q1_sales_performance_l12m.sql
-│   ├── q2_yoy_growth_top_categories.sql
-│   ├── q3_top_territories.sql
-│   ├── q4_seasonal_discount_cost.sql
-│   ├── q5_retention_rate_cohort.sql
-│   ├── q6_stock_trend_mom.sql
-│   ├── q7_stock_to_sales_ratio.sql
-│   └── q8_pending_orders_2014.sql
-└── README.md                          
-```
 
 ---
 
@@ -505,3 +448,25 @@ Develop post-purchase engagement programs, including maintenance reminders, loya
 **📊 Optimize Inventory and Purchasing Decisions**
 
 Adopt demand-driven inventory planning by monitoring Inventory Turnover and Stock-to-Sales Ratios. Align purchasing decisions with historical sales demand to reduce excess inventory, improve cash flow, and minimize inventory holding costs.
+
+---
+
+## 🗂️ Project Structure
+
+```text
+Bicycle_Manufacturer_Performance_Analysis/
+├── documents/                         # Contains query result output images
+│   ├── q1.png
+│   ├── ...
+│   └── q8.png
+├── query/                             
+│   ├── q1_sales_performance_l12m.sql
+│   ├── q2_yoy_growth_top_categories.sql
+│   ├── q3_top_territories.sql
+│   ├── q4_seasonal_discount_cost.sql
+│   ├── q5_retention_rate_cohort.sql
+│   ├── q6_stock_trend_mom.sql
+│   ├── q7_stock_to_sales_ratio.sql
+│   └── q8_pending_orders_2014.sql
+└── README.md                          
+```
